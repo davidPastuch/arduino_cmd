@@ -67,14 +67,28 @@ void loop() {
     Serial.println("help message");
   }
   else if(!strcmp(input_string, "gpio_dir\n")) {
-    Serial.print("Pin number:");
+    Serial.print("Pin number: ");
     str_size = getString(input_string) - 1;
-    pin_num = 0;
+    pin_num = ascii2dec(input_string, str_size);
+    Serial.print("Direction: ");
+    getString(input_string);
+    if(!strcmp(input_string, "IN\n")) {
+      pinMode(pin_num, INPUT);
+    }
+    if(!strcmp(input_string, "OUT\n")) {
+      pinMode(pin_num, OUTPUT);
+    }
   }
   else if(!strcmp(input_string, "gpio_on\n")) {
-    Serial.print("Pin number:");
+    Serial.print("Pin number: ");
+    str_size = getString(input_string) - 1;
+    pin_num = ascii2dec(input_string, str_size);
+    digitalWrite(pin_num, HIGH);
   }
   else if(!strcmp(input_string, "gpio_off\n")) {
-    Serial.print("Pin number:");
+    Serial.print("Pin number: ");
+    str_size = getString(input_string) - 1;
+    pin_num = ascii2dec(input_string, str_size);
+    digitalWrite(pin_num, LOW);
   }
 }
