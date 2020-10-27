@@ -1,8 +1,11 @@
 # arduino_cmd
 command line interface for an arduino uno
 
-So this runs on an uno. Current supported commands are:
+So this runs on an uno. Each command will provide ranges or acceptable values for input. Current supported commands are:
 * help
-* gpio_dir (asks for pin number and "in" or "out")
-* gpio_on (asks for pin number)
-* gpio_off (asks for pin number)
+* gpio_dir
+* gpio_on
+* gpio_off 
+* gpio_read
+* analog_read
+* pwm
