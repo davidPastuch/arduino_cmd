@@ -65,17 +65,17 @@ void loop() {
   Serial.print("> ");
   getString(input_string);
   if(!strcmp(input_string, "help\n")) {
-    Serial.println("help message");
+    Serial.println("Available commands:\ngpio_dir\ngpio_on\ngpio_off\nanalog_read\npwm");
   }
   else if(!strcmp(input_string, "gpio_dir\n")) {
-    Serial.print("Pin number: ");
+    Serial.print("Pin number (0-13): ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
     if(pin_num < 0 || pin_num > 13) {
       Serial.println("Pin out of range");
       return;
     }
-    Serial.print("Direction: ");
+    Serial.print("Direction (in/out/in_pullup): ");
     getString(input_string);
     if(!strcmp(input_string, "in\n")) {
       pinMode(pin_num, INPUT);
@@ -91,7 +91,7 @@ void loop() {
     }
   }
   else if(!strcmp(input_string, "gpio_on\n")) {
-    Serial.print("Pin number: ");
+    Serial.print("Pin number (0-13): ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
     if(pin_num < 0 || pin_num > 13) {
@@ -101,7 +101,7 @@ void loop() {
     digitalWrite(pin_num, HIGH);
   }
   else if(!strcmp(input_string, "gpio_off\n")) {
-    Serial.print("Pin number: ");
+    Serial.print("Pin number (0-13): ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
     if(pin_num < 0 || pin_num > 13) {
@@ -111,17 +111,17 @@ void loop() {
     digitalWrite(pin_num, LOW);
   }
   else if(!strcmp(input_string, "analog_read\n")) {
-    Serial.print("Pin number: ");
+    Serial.print("Pin number (A0-A5): ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
-    if(pin_num < A0 || pin_num > A5) {
+    if(strcmp(input_string, "A0\n") && strcmp(input_string, "A1\n") && strcmp(input_string, "A2\n") && strcmp(input_string, "A3\n") && strcmp(input_string, "A4\n") && strcmp(input_string, "A5\n")) {
       Serial.println("Invalid");
       return;
     }
     result = analogRead(pin_num);
     Serial.println(result);
   }else if(!strcmp(input_string, "pwm\n")) {
-    Serial.print("Pin number: ");
+    Serial.print("Pin number (3, 5-6, 9-11): ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
     if(pin_num < 3 || pin_num > 11 || pin_num == 4 || pin_num == 7 || pin_num == 8) {
