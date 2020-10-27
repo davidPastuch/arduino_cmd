@@ -94,4 +94,11 @@ void loop() {
     pin_num = ascii2dec(input_string, str_size);
     digitalWrite(pin_num, LOW);
   }
+  else if(!strcmp(input_string, "analog_read\n")) {
+    Serial.print("Pin number: ");
+    str_size = getString(input_string) - 1;
+    pin_num = ascii2dec(input_string, str_size);
+    result = analogRead(pin_num);
+    Serial.println(result);
+  }
 }
