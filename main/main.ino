@@ -71,6 +71,10 @@ void loop() {
     Serial.print("Pin number: ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
+    if(pin_num < 0 || pin_num > 13) {
+      Serial.println("Pin out of range");
+      return;
+    }
     Serial.print("Direction: ");
     getString(input_string);
     if(!strcmp(input_string, "in\n")) {
@@ -82,32 +86,55 @@ void loop() {
     else if(!strcmp(input_string, "out\n")) {
       pinMode(pin_num, OUTPUT);
     }
+    else {
+      Serial.println("Invalid");
+    }
   }
   else if(!strcmp(input_string, "gpio_on\n")) {
     Serial.print("Pin number: ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
+    if(pin_num < 0 || pin_num > 13) {
+      Serial.println("Invalid");
+      return;
+    }
     digitalWrite(pin_num, HIGH);
   }
   else if(!strcmp(input_string, "gpio_off\n")) {
     Serial.print("Pin number: ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
+    if(pin_num < 0 || pin_num > 13) {
+      Serial.println("Pin out of range");
+      return;
+    }
     digitalWrite(pin_num, LOW);
   }
   else if(!strcmp(input_string, "analog_read\n")) {
     Serial.print("Pin number: ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
+    if(pin_num < A0 || pin_num > A5) {
+      Serial.println("Invalid");
+      return;
+    }
     result = analogRead(pin_num);
     Serial.println(result);
   }else if(!strcmp(input_string, "pwm\n")) {
     Serial.print("Pin number: ");
     str_size = getString(input_string) - 1;
     pin_num = ascii2dec(input_string, str_size);
+    if(pin_num < 3 || pin_num > 11 || pin_num == 4 || pin_num == 7 || pin_num == 8) {
+      Serial.println("Invalid");
+      return;
+    }
     Serial.print("Duty cycle: ");
     str_size = getString(input_string) - 1;
     result = ascii2dec(input_string, str_size);
+    if(result > 0 || result < 100) {
+      Serial.println("Invalid");
+      return;
+    }
     if(result) {
       result = (int)(255 * ((float)result / 100));
     }
