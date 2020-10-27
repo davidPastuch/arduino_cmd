@@ -75,7 +75,10 @@ void loop() {
     if(!strcmp(input_string, "in\n")) {
       pinMode(pin_num, INPUT);
     }
-    if(!strcmp(input_string, "out\n")) {
+    else if(!strcmp(input_string, "in_pullup\n")) {
+      pinMode(pin_num, INPUT_PULLUP);
+    }
+    else if(!strcmp(input_string, "out\n")) {
       pinMode(pin_num, OUTPUT);
     }
   }
